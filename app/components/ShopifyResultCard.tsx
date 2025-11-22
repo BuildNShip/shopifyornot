@@ -198,17 +198,17 @@ export default function ShopifyResultCard({
 
                         {/* URL Display */}
                         <motion.div
-                            className="flex items-center gap-2 p-3 bg-[#F6F6F6] rounded-lg mb-6"
+                            className="flex flex-col sm:flex-row sm:items-center gap-2 p-3 bg-[#F6F6F6] rounded-lg mb-6"
                             initial={{ opacity: 0, y: 10 }}
                             animate={{ opacity: 1, y: 0 }}
                             transition={{ delay: 0.3 }}
                         >
                             <Globe className="h-4 w-4 text-[#666666]" />
-                            <span className="text-sm text-[#424242] font-mono font-medium">
+                            <span className="text-sm text-[#424242] font-mono font-medium break-all sm:break-normal sm:flex-1">
                                 {result.url}
                             </span>
                             {result.shop_domain && (
-                                <span className="text-xs text-[#008060] font-medium ml-auto">
+                                <span className="text-xs text-[#008060] font-medium sm:ml-auto break-all">
                                     {result.shop_domain}
                                 </span>
                             )}
@@ -234,7 +234,7 @@ export default function ShopifyResultCard({
                             animate={{ opacity: 1 }}
                             transition={{ delay: 0.5 }}
                         >
-                            <div className="flex items-center justify-between mb-2">
+                            <div className="flex items-center justify-between gap-2 flex-wrap mb-2">
                                 <span className="text-sm font-medium text-[#424242]">
                                     Detection Confidence
                                 </span>
@@ -267,7 +267,7 @@ export default function ShopifyResultCard({
                         {/* Quick Stats */}
                         {result.isShopify && (
                             <motion.div
-                                className="grid grid-cols-3 gap-4 mb-6"
+                                className="grid grid-cols-1 sm:grid-cols-3 gap-4 mb-6"
                                 initial={{ opacity: 0, y: 20 }}
                                 animate={{ opacity: 1, y: 0 }}
                                 transition={{ delay: 0.7 }}

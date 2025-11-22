@@ -66,7 +66,7 @@ export default function ShopifyHero() {
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ duration: 0.6, delay: 0.1 }}
             >
-                Is it a{" "}
+                Is It a{" "}
                 <span className="text-transparent bg-clip-text bg-gradient-to-r from-[#008060] to-[#00A56A]">
                     Shopify
                 </span>{" "}

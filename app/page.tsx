@@ -1,8 +1,8 @@
 "use client";
 
 import styles from "./page.module.css";
-import { ShopifyCheckerForm } from "./components/ShopifyCheckerForm";
-import { ShopifyResultCard } from "./components/ShopifyResultCard";
+import ShopifyCheckerForm from "./components/ShopifyCheckerForm";
+import ShopifyResultCard from "./components/ShopifyResultCard";
 import { useShopifyCheck } from "./hooks/useShopifyCheck";
 
 const helperText = "Press Enter or click Check to fetch the latest Shopify signals.";

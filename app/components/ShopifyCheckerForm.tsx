@@ -32,8 +32,13 @@ export default function ShopifyCheckerForm({
     const shouldShowVisitSite = showGoBack && !isUrlModified;
 
     const handleVisitSite = () => {
-        // Better protocol detection to avoid double protocols
-        window.open(url);
+        const trimmed = url.trim();
+        if (!trimmed) return;
+
+        const hasProtocol = /^https?:\/\//i.test(trimmed);
+        const targetUrl = hasProtocol ? trimmed : `https://${trimmed}`;
+
+        window.open(targetUrl, "_blank", "noopener,noreferrer");
     };
 
     const formVariants = {

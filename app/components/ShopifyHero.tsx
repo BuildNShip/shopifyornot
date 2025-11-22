@@ -28,17 +28,22 @@ export default function ShopifyHero() {
         >
             {/* GitHub Stars Badge */}
             {stars !== null && (
-                <motion.div
+                <motion.a
+                    href="https://github.com/BuildNShip/shopifyornot"
+                    target="_blank"
+                    rel="noopener noreferrer"
                     className="inline-flex items-center gap-2 px-3 py-1.5 bg-[#F6F6F6] rounded-full mb-2"
                     initial={{ opacity: 0, scale: 0.9 }}
                     animate={{ opacity: 1, scale: 1 }}
                     transition={{ duration: 0.5 }}
+                    whileHover={{ scale: 1.03 }}
+                    whileTap={{ scale: 0.97 }}
                 >
                     <Star className="h-3 w-3 text-[#008060] fill-[#008060]" />
                     <span className="text-xs font-medium text-[#1A1A1A]">
                         {stars.toLocaleString()} GitHub stars
                     </span>
-                </motion.div>
+                </motion.a>
             )}
 
             {/* Marketing Badge */}

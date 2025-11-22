@@ -50,7 +50,7 @@ export default function RootLayout({
       </head>
       <body className="font-instrument antialiased bg-white text-[#1A1A1A] min-h-screen flex flex-col">
         <Navbar />
-        <main className="flex-1 pt-20">
+        <main className="flex-1">
           {children}
         </main>
         <Footer />

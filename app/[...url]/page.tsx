@@ -1,6 +1,7 @@
 'use client';
 
-import React from 'react';
+import React, { useEffect } from 'react';
+import { useParams } from 'next/navigation';
 import { motion } from 'framer-motion';
 import {
   Zap,
@@ -8,11 +9,10 @@ import {
   CheckCircle,
   Sparkles
 } from 'lucide-react';
-import { useShopifyCheck } from './hooks/useShopifyCheck';
-import ShopifyCheckerForm from './components/ShopifyCheckerForm2';
-import ShopifyResultCard from './components/ShopifyResultCard2';
-import LightRaysBackground from './components/LightRaysBackground';
-import { cn } from './utils/cn';
+import { useShopifyCheck } from '../hooks/useShopifyCheck';
+import ShopifyCheckerForm from '../components/ShopifyCheckerForm2';
+import ShopifyResultCard from '../components/ShopifyResultCard2';
+import LightRaysBackground from '../components/LightRaysBackground';
 
 const stats = [
   { value: '10K+', label: 'Checks Daily' },
@@ -21,7 +21,25 @@ const stats = [
   { value: '150+', label: 'Countries' },
 ];
 
-export default function HomePage() {
+export default function DynamicPage() {
+  const params = useParams();
+
+  // Get the URL from the catch-all route parameter and decode it
+  const rawUrlFromPath = params.url ? (Array.isArray(params.url) ? params.url.join('/') : params.url) : '';
+
+  // Decode the URL and clean it up
+  let urlFromPath = '';
+  try {
+    urlFromPath = decodeURIComponent(rawUrlFromPath);
+    // Remove any protocol if it was accidentally included
+    urlFromPath = urlFromPath.replace(/^(https?:\/\/)/, '');
+    // Clean up any double slashes that might have been encoded
+    urlFromPath = urlFromPath.replace(/\/\//g, '/');
+  } catch (e) {
+    // If decoding fails, use the raw path
+    urlFromPath = rawUrlFromPath;
+  }
+
   const {
     url,
     setUrl,
@@ -32,7 +50,20 @@ export default function HomePage() {
     toggleTechnical,
     handleSubmit,
     confidenceDisplay,
-  } = useShopifyCheck();
+  } = useShopifyCheck({
+    initialUrl: urlFromPath,
+    autoCheck: true
+  });
+
+  // Track if we've completed a check (for showing "Go Back" button)
+  const hasCompletedCheck = result !== null;
+
+  // Update the URL when the route changes
+  useEffect(() => {
+    if (urlFromPath) {
+      setUrl(urlFromPath);
+    }
+  }, [urlFromPath, setUrl]);
 
   const heroVariants = {
     initial: { opacity: 0, y: 20 },
@@ -154,6 +185,8 @@ export default function HomePage() {
             helperText="Enter any website URL to check instantly"
             onSubmit={handleSubmit}
             onUrlChange={setUrl}
+            showGoBack={hasCompletedCheck}
+            originalUrl={urlFromPath}
           />
 
           {/* Error Display */}

@@ -129,7 +129,7 @@ export default function ShopifyResultCard({
 
           <div className="relative">
             {/* Header */}
-            <div className="flex items-start justify-between mb-6">
+            <div className="flex flex-col sm:flex-row sm:items-start sm:justify-between gap-4 mb-6">
               <motion.div
                 className="flex items-center gap-3"
                 initial={{ opacity: 0, x: -20 }}
@@ -141,14 +141,14 @@ export default function ShopifyResultCard({
                   initial="initial"
                   animate="animate"
                   className={cn(
-                    "p-3 rounded-xl",
+                    "p-3 rounded-xl flex-shrink-0",
                     getStatusBackground()
                   )}
                 >
                   {getStatusIcon()}
                 </motion.div>
                 <div>
-                  <h3 className={cn("text-xl font-semibold", getStatusColor())}>
+                  <h3 className={cn("text-lg sm:text-xl font-semibold", getStatusColor())}>
                     {result.isShopify ? 'Shopify Store Detected!' : 'Not a Shopify Store'}
                   </h3>
                   <p className="text-sm text-[#999999] mt-1">
@@ -158,7 +158,7 @@ export default function ShopifyResultCard({
               </motion.div>
 
               <motion.div
-                className="flex items-center gap-2"
+                className="flex items-center gap-2 self-stretch sm:self-auto"
                 initial={{ opacity: 0, x: 20 }}
                 animate={{ opacity: 1, x: 0 }}
                 transition={{ delay: 0.2 }}
@@ -167,6 +167,7 @@ export default function ShopifyResultCard({
                   variant="ghost"
                   size="sm"
                   onClick={handleCopy}
+                  className="flex-1 sm:flex-initial"
                   icon={copied ? <CheckCheck className="h-4 w-4" /> : <Copy className="h-4 w-4" />}
                 >
                   {copied ? 'Copied!' : 'Copy'}
@@ -175,6 +176,7 @@ export default function ShopifyResultCard({
                   variant="ghost"
                   size="sm"
                   onClick={() => window.open(`https://${result.url}`, '_blank')}
+                  className="flex-1 sm:flex-initial"
                   icon={<ExternalLink className="h-4 w-4" />}
                 >
                   Visit
@@ -284,7 +286,7 @@ export default function ShopifyResultCard({
               <Button
                 variant="ghost"
                 onClick={onToggleTechnical}
-                className="w-full justify-between"
+                className="w-full justify-between bg-[#F6F6F6] hover:bg-[#EBEBEB]"
                 icon={showTechnical ? <ChevronUp className="h-4 w-4" /> : <ChevronDown className="h-4 w-4" />}
               >
                 <span className="flex items-center gap-2">

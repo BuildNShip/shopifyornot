@@ -31,6 +31,7 @@ foundations {
         info: "#2C6ECB"
       }
 
+
       accents {
         blue: "#006EFF"
         yellow: "#FFD95A"

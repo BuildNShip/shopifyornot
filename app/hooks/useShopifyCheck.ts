@@ -1,4 +1,4 @@
-import { FormEvent, useCallback, useMemo, useState } from "react";
+import { FormEvent, useCallback, useMemo, useState, useEffect } from "react";
 
 import { formatConfidence } from "../lib/confidence";
 import { createShopifyChecker } from "../services/shopifyChecker";
@@ -6,10 +6,12 @@ import { ShopifyResult, NormalizedShopifyCheckResponse } from "../types/shopify"
 
 type UseShopifyCheckOptions = {
   fetcher?: typeof fetch;
+  initialUrl?: string;
+  autoCheck?: boolean;
 };
 
-export const useShopifyCheck = ({ fetcher }: UseShopifyCheckOptions = {}) => {
-  const [url, setUrl] = useState("");
+export const useShopifyCheck = ({ fetcher, initialUrl = "", autoCheck = false }: UseShopifyCheckOptions = {}) => {
+  const [url, setUrl] = useState(initialUrl);
   const [result, setResult] = useState<ShopifyResult | null>(null);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
@@ -60,11 +62,9 @@ export const useShopifyCheck = ({ fetcher }: UseShopifyCheckOptions = {}) => {
     return `${Math.round(result.confidence * 100)}%`;
   }, [result]);
 
-  const handleSubmit = useCallback(
-    async (event: FormEvent<HTMLFormElement>) => {
-      event.preventDefault();
-
-      const trimmed = url.trim();
+  const checkUrl = useCallback(
+    async (urlToCheck: string) => {
+      const trimmed = urlToCheck.trim();
 
       if (!trimmed) {
         setError("Please enter a website URL to check.");
@@ -90,12 +90,27 @@ export const useShopifyCheck = ({ fetcher }: UseShopifyCheckOptions = {}) => {
         setLoading(false);
       }
     },
-    [checker, url, transformResult],
+    [checker, transformResult],
+  );
+
+  const handleSubmit = useCallback(
+    async (event: FormEvent<HTMLFormElement>) => {
+      event.preventDefault();
+      await checkUrl(url);
+    },
+    [checkUrl, url],
   );
 
   const toggleTechnical = useCallback(() => {
     setShowTechnical((previous) => !previous);
   }, []);
+
+  // Auto-check on mount if initialUrl is provided and autoCheck is true
+  useEffect(() => {
+    if (initialUrl && autoCheck) {
+      checkUrl(initialUrl);
+    }
+  }, [initialUrl, autoCheck, checkUrl]);
 
   return {
     url,

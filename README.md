@@ -1,36 +1,61 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+## ShopifyOrNot
 
-## Getting Started
+ShopifyOrNot is a minimal, single-page web app that lets SalesOps and revenue teams quickly check whether a prospect’s website is running on Shopify. It wraps a focused, marketing-style UI around a fast Shopify detection API so reps can qualify leads in seconds.
 
-First, run the development server:
+### What it does
+
+- Accepts any website URL and normalizes / follows redirects.
+- Calls the detection API at `https://dev-api.makemypass.com/check?url=<INPUT_URL>`.
+- Interprets the API response into a clear result card:
+  - Is this a Shopify store?
+  - Confidence score.
+  - Resolved final URL.
+  - Shopify `.myshopify.com` domain if detected.
+  - Optional “Technical signals” (response headers and body markers) in an expandable section.
+
+### Target users
+
+- SaaS teams selling Shopify apps or plugins.
+- SalesOps and SDRs qualifying cold / inbound leads.
+- Growth and partnerships teams doing quick domain research.
+
+### Running the app locally
 
 ```bash
+npm install
 npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+- Visit `http://localhost:3000` to use the checker.
+- The main experience is implemented in `app/page.tsx` and the supporting components under `app/components/`.
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+### Implementation notes
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+- Built with the Next.js App Router and TypeScript.
+- UI styled to loosely follow Shopify marketing patterns (see `UI_DESIGN.md`).
+- Shopify detection is centralized in the Edge route `app/api/check/route.ts`, which proxies to `https://dev-api.makemypass.com/check`.
+- `app/hooks/useShopifyCheck.ts` encapsulates request/response wiring and transforms API JSON into the UI-friendly `ShopifyResult` shape.
 
-## Learn More
+### Project structure (high level)
 
-To learn more about Next.js, take a look at the following resources:
+- `app/` – main UI, pages, and API routes.
+- `app/components/` – reusable UI components (hero, form, cards, alerts).
+- `app/hooks/` – React hooks for Shopify detection and GitHub stars.
+- `app/services/` – API service wrappers (Shopify checker).
+- `app/types/` – shared TypeScript types for API responses.
+- `app/utils/` – small utilities and helpers.
+- `public/` – static assets.
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+### Scripts
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+- `npm run dev` – start local development.
+- `npm run build` – create a production build.
+- `npm start` – serve the production build.
+- `npm run lint` – run ESLint (Next + TypeScript rules).
 
-## Deploy on Vercel
+### Roadmap ideas
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+- Bulk upload / CSV support for checking many domains at once.
+- Browser extension or CRM-side widget for one-click checks.
+- Rate-limiting and API key support for teams embedding the checker.
+- Additional platform detectors (e.g., WooCommerce, Magento) alongside Shopify.

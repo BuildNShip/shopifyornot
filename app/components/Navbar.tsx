@@ -33,22 +33,32 @@ export default function Navbar() {
             <span>ShopifyOrNot</span>
           </Link>
 
-          {/* GitHub Star Button */}
-          <motion.a
-            href="https://github.com/yourusername/shopifyornot"
-            target="_blank"
-            rel="noopener noreferrer"
-            className="flex items-center gap-1.5 text-[#666666] hover:text-[#1A1A1A] transition-colors"
-            whileHover={{ scale: 1.05 }}
-            whileTap={{ scale: 0.95 }}
-            initial={{ opacity: 0, x: 20 }}
-            animate={{ opacity: 1, x: 0 }}
-            transition={{ delay: 0.2 }}
-          >
-            <Github className="h-4 w-4" />
-            <Star className="h-3 w-3 fill-current" />
-            <span className="text-xs font-medium">1.2k</span>
-          </motion.a>
+          <div className="flex items-center gap-6">
+            {/* The Story Link */}
+            <Link
+              href="/the-story"
+              className="text-sm font-medium text-[#424242] hover:text-[#008060] transition-colors"
+            >
+              The Story
+            </Link>
+
+            {/* GitHub Star Button */}
+            <motion.a
+              href="https://github.com/BuildNShip/shopifyornot"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="flex items-center gap-1.5 text-[#666666] hover:text-[#1A1A1A] transition-colors"
+              whileHover={{ scale: 1.05 }}
+              whileTap={{ scale: 0.95 }}
+              initial={{ opacity: 0, x: 20 }}
+              animate={{ opacity: 1, x: 0 }}
+              transition={{ delay: 0.2 }}
+            >
+              <Github className="h-4 w-4" />
+              <Star className="h-3 w-3 fill-current" />
+              <span className="text-xs font-medium">Star</span>
+            </motion.a>
+          </div>
         </div>
       </div>
     </motion.nav>

@@ -28,7 +28,7 @@ export const metadata: Metadata = {
         siteName: "ShopifyOrNot.in",
         images: [
             {
-                url: "/meta-image-v2.png",
+                url: "https://raw.githubusercontent.com/BuildNShip/static/refs/heads/main/meta-preview.png",
                 width: 1200,
                 height: 630,
                 alt: "ShopifyOrNot.in — Instantly Detect Shopify Websites",
@@ -41,7 +41,9 @@ export const metadata: Metadata = {
         title: "ShopifyOrNot.in — Instantly Detect Shopify Websites",
         description:
             "Just paste a URL or use shopifyornot.in/ before any domain to check if it’s a Shopify store. Free API for sales automation.",
-        images: ["/meta-image-v2.png"],
+        images: [
+            "https://raw.githubusercontent.com/BuildNShip/static/refs/heads/main/meta-preview.png",
+        ],
         site: "@shopifyornot",
     },
     themeColor: "#1a1a1a",

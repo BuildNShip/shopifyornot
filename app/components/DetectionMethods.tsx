@@ -3,6 +3,7 @@
 import React from "react";
 import { motion } from "framer-motion";
 import { ClipboardPaste, Link2, Code2, ArrowRight } from "lucide-react";
+import Link from "next/link";
 
 export default function DetectionMethods() {
     const methods = [
@@ -99,15 +100,17 @@ export default function DetectionMethods() {
 
                             {/* Action button if exists */}
                             {method.hasAction && (
-                                <motion.button
-                                    className="mt-3 inline-flex items-center gap-1 text-xs font-medium"
-                                    style={{ color: method.color }}
-                                    whileHover={{ x: 2 }}
-                                    transition={{ duration: 0.2 }}
-                                >
-                                    {method.actionText}
-                                    <ArrowRight className="h-3 w-3" />
-                                </motion.button>
+                                <Link href="/api-docs">
+                                    <motion.button
+                                        className="mt-3 inline-flex items-center gap-1 text-xs font-medium"
+                                        style={{ color: method.color }}
+                                        whileHover={{ x: 2 }}
+                                        transition={{ duration: 0.2 }}
+                                    >
+                                        {method.actionText}
+                                        <ArrowRight className="h-3 w-3" />
+                                    </motion.button>
+                                </Link>
                             )}
                         </div>
 

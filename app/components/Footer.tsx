@@ -4,10 +4,9 @@ import React from "react";
 import { motion } from "framer-motion";
 import { Heart, Sparkles } from "lucide-react";
 
-const COPYRIGHT_YEAR = 2024;
+const COPYRIGHT_YEAR = 2025;
 
 export default function Footer() {
-
     return (
         <footer className="bg-gradient-to-b from-transparent via-white/50 to-white text-[#1A1A1A]">
             {/* Main Footer Content */}

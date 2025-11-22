@@ -13,7 +13,7 @@ export async function GET(request: NextRequest) {
 
         // Make the request to the external API
         const response = await fetch(
-            `https://dev-api.makemypass.com/check?url=${encodeURIComponent(url)}`,
+            `https://api.shopifyornot.in/check?url=${encodeURIComponent(url)}`,
             {
                 headers: {
                     Accept: "application/json",

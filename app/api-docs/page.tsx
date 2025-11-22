@@ -10,8 +10,8 @@ export default function ApiDocsPage() {
     const [copiedEndpoint, setCopiedEndpoint] = useState(false);
     const [copiedExample, setCopiedExample] = useState(false);
 
-    const apiEndpoint = "https://api.shopifyornot.in/api/check?url={website}";
-    const exampleCurl = `curl -X GET "https://shopifyornot.in/api/check?url=allbirds.com"`;
+    const apiEndpoint = "https://api.shopifyornot.in/check?url={website}";
+    const exampleCurl = `curl -X GET "https://shopifyornot.in/check?url=carencurepharmacy.com"`;
 
     const handleCopy = (text: string, type: "endpoint" | "example") => {
         navigator.clipboard.writeText(text);
@@ -76,11 +76,11 @@ export default function ApiDocsPage() {
     ];
 
     const exampleResponse = {
-        input_url: "allbirds.com",
-        final_url: "https://www.allbirds.com/",
+        input_url: "carencurepharmacy.com",
+        final_url: "https://www.carencurepharmacy.com/",
         is_shopify: true,
         confidence: 0.95,
-        shop_domain: "allbirds.myshopify.com",
+        shop_domain: "carencurepharmacy.myshopify.com",
         detected_signals: [
             "shopify-header",
             "shopify-cdn",
@@ -178,7 +178,10 @@ export default function ApiDocsPage() {
                                 <button
                                     onClick={() =>
                                         handleCopy(
-                                            apiEndpoint.replace("{website}", "example.com"),
+                                            apiEndpoint.replace(
+                                                "{website}",
+                                                "carencurepharmacy.com"
+                                            ),
                                             "endpoint"
                                         )
                                     }
@@ -405,7 +408,8 @@ export default function ApiDocsPage() {
                                     Rate Limits
                                 </h3>
                                 <p className="text-sm text-[#666666] mb-3">
-                                    The API is currently free with reasonable usage limits:
+                                    The API is currently free with reasonable usage limits and may
+                                    become a paid-only feature in the future depending on usage:
                                 </p>
                                 <ul className="space-y-2">
                                     <li className="flex items-center gap-2 text-sm text-[#666666]">
@@ -436,7 +440,7 @@ export default function ApiDocsPage() {
                             Need higher limits or custom integration?
                         </p>
                         <a
-                            href="mailto:api@shopifyornot.in"
+                            href="https://wa.me/918606358178?text=Hi%20Adnan%2C%20I%27d%20like%20to%20talk%20more%20about%20ShopifyOrNot."
                             className="inline-flex items-center gap-2 px-6 py-3 bg-gradient-to-r from-[#008060] to-[#00A56A] text-white text-sm font-medium rounded-lg hover:shadow-lg transition-all duration-300"
                         >
                             Contact Us

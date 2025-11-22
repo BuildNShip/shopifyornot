@@ -39,8 +39,8 @@ The primary users are **SalesOps teams** of SaaS businesses who sell Shopify plu
 
     ```json
     {
-        "input_url": "allbirds.com",
-        "final_url": "https://www.allbirds.com/",
+        "input_url": "carencurepharmacy.com",
+        "final_url": "https://www.carencurepharmacy.com/",
         "is_shopify": true,
         "confidence": 1,
         "detected_signals": [
@@ -51,7 +51,7 @@ The primary users are **SalesOps teams** of SaaS businesses who sell Shopify plu
             "body:myshopify.com",
             "body:window.Shopify"
         ],
-        "shop_domain": "weareallbirds.myshopify.com",
+        "shop_domain": "carencurepharmacy.myshopify.com",
         "headers_sample": {
             "server": "cloudflare",
             "x-sorting-hat-shopid": "11044168"

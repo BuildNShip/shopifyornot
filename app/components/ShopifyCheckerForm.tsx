@@ -142,7 +142,7 @@ export default function ShopifyCheckerForm({
                                     onChange={(e) => onUrlChange(e.target.value)}
                                     onFocus={() => setIsFocused(true)}
                                     onBlur={() => setIsFocused(false)}
-                                    placeholder="Enter website URL (e.g., example.com)"
+                                    placeholder="Enter website URL (e.g., carencurepharmacy.com)"
                                     className={cn(
                                         "w-full h-12 pl-11 pr-4 text-sm",
                                         "bg-white border-2 border-[#DCDCDC] rounded-xl",

@@ -19,7 +19,7 @@ export default function DetectionMethods() {
             icon: Link2,
             title: "Add Prefix",
             description: "Add shopifyornot.in/ before any website",
-            example: "(e.g. shopifyornot.in/allbirds.com)",
+            example: "(e.g. shopifyornot.in/carencurepharmacy.com)",
             detail: "Super handy for browser checks",
             color: "#006EFF",
             bgColor: "#E6F0FF",

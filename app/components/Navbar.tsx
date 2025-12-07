@@ -1,11 +1,11 @@
-'use client';
+"use client";
 
-import React from 'react';
-import { motion } from 'framer-motion';
-import { Github, Star } from 'lucide-react';
-import Link from 'next/link';
-import Image from 'next/image';
-import { navbarVariants } from '../utils/animations';
+import React from "react";
+import { motion } from "framer-motion";
+import { Github, Star } from "lucide-react";
+import Link from "next/link";
+import Image from "next/image";
+import { navbarVariants } from "../utils/animations";
 
 export default function Navbar() {
   return (
@@ -41,6 +41,12 @@ export default function Navbar() {
                 className="text-sm font-medium text-[#424242] hover:text-[#008060] transition-colors"
               >
                 The Story
+              </Link>
+              <Link
+                href="/blogs"
+                className="text-sm font-medium text-[#424242] hover:text-[#008060] transition-colors"
+              >
+                Blogs
               </Link>
               <Link
                 href="/api-docs"

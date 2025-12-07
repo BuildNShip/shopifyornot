@@ -4,11 +4,46 @@ import { getAllBlogPosts } from "../lib/blogs";
 import styles from "./page.module.css";
 
 export const metadata: Metadata = {
-    title: "ShopifyOrNot Blog — Guides, Benchmarks, and Stories",
+    title: "ShopifyOrNot Blog | Shopify Detection Guides & Updates",
     description:
-        "Browse ShopifyOrNot blog posts featuring Shopify detection tips, benchmarks, and stories from the team.",
+        "Concise Shopify detection guides, outbound playbooks, and product updates from the ShopifyOrNot team.",
+    keywords: [
+        "ShopifyOrNot blog",
+        "Shopify detector guides",
+        "Shopify outbound tips",
+        "Shopify API updates",
+        "Shopify store checker",
+    ],
     alternates: {
         canonical: "/blogs",
+    },
+    robots: {
+        index: true,
+        follow: true,
+    },
+    openGraph: {
+        type: "website",
+        url: "https://shopifyornot.in/blogs",
+        title: "ShopifyOrNot Blog | Shopify Detection Guides & Updates",
+        description:
+            "Shopify detection best practices, outbound workflows, and product updates from ShopifyOrNot.",
+        siteName: "ShopifyOrNot.in",
+        images: [
+            {
+                url: "https://shopifyornot.in/meta-image.png",
+                width: 1200,
+                height: 630,
+                alt: "ShopifyOrNot Blog preview",
+            },
+        ],
+    },
+    twitter: {
+        card: "summary_large_image",
+        title: "ShopifyOrNot Blog | Shopify Detection Guides & Updates",
+        description:
+            "Shopify detection best practices, outbound workflows, and product updates from ShopifyOrNot.",
+        images: ["https://shopifyornot.in/meta-image.png"],
+        site: "@shopifyornot",
     },
 };
 
@@ -32,6 +67,19 @@ function formatDate(dateString?: string) {
 export default async function BlogsPage() {
     const posts = await getAllBlogPosts();
     const [featured, ...rest] = posts;
+    const blogJsonLd = {
+        "@context": "https://schema.org",
+        "@type": "Blog",
+        name: "ShopifyOrNot Blog",
+        url: "https://shopifyornot.in/blogs",
+        description:
+            "Shopify detection guides, outbound playbooks, and product updates from ShopifyOrNot.",
+        publisher: {
+            "@type": "Organization",
+            name: "ShopifyOrNot.in",
+            url: "https://shopifyornot.in",
+        },
+    };
 
     return (
         <section className={styles.page}>
@@ -107,6 +155,10 @@ export default async function BlogsPage() {
                     </Link>
                 ))}
             </div>
+            <script
+                type="application/ld+json"
+                dangerouslySetInnerHTML={{ __html: JSON.stringify(blogJsonLd) }}
+            />
         </section>
     );
 }

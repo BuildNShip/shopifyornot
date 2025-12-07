@@ -6,6 +6,11 @@ import { getBlogPost, getBlogSlugs } from "../../lib/blogs";
 import styles from "./page.module.css";
 
 type BlogPageParams = { slug: string };
+const siteUrl = "https://shopifyornot.in";
+const defaultOgImage = `${siteUrl}/meta-image.png`;
+const fallbackDescription =
+    "ShopifyOrNot blog post with tips, stories, and Shopify detection benchmarks.";
+const fallbackKeywords = ["Shopify detector tips", "Shopify outbound", "Shopify API"];
 
 function formatDate(dateString?: string) {
     if (!dateString) {
@@ -45,27 +50,47 @@ export async function generateMetadata({
     }
 
     const { frontmatter } = post;
-    const description =
-        frontmatter.description ??
-        "ShopifyOrNot blog post with tips, stories, and Shopify detection benchmarks.";
+    const description = frontmatter.description ?? fallbackDescription;
+    const keywords = frontmatter.keywords?.length ? frontmatter.keywords : fallbackKeywords;
+    const canonicalUrl = `${siteUrl}/blog/${slug}`;
 
     return {
         title: `${frontmatter.title} | ShopifyOrNot Blog`,
         description,
-        keywords: frontmatter.keywords,
+        keywords,
         alternates: {
-            canonical: `/blog/${slug}`,
+            canonical: canonicalUrl,
+        },
+        robots: {
+            index: true,
+            follow: true,
         },
         openGraph: {
             title: frontmatter.title,
             description,
             type: "article",
-            url: `https://shopifyornot.in/blog/${slug}`,
+            url: canonicalUrl,
+            siteName: "ShopifyOrNot.in",
+            publishedTime: frontmatter.date,
+            modifiedTime: frontmatter.date,
+            authors: frontmatter.author ? [frontmatter.author] : undefined,
+            tags: keywords,
+            images: [
+                {
+                    url: defaultOgImage,
+                    width: 1200,
+                    height: 630,
+                    alt: frontmatter.title,
+                },
+            ],
         },
         twitter: {
             card: "summary_large_image",
             title: frontmatter.title,
             description,
+            images: [defaultOgImage],
+            site: "@shopifyornot",
+            creator: frontmatter.author,
         },
     };
 }
@@ -84,6 +109,54 @@ export default async function BlogPage({
 
     const { frontmatter, content } = post;
     const formattedDate = formatDate(frontmatter.date);
+    const metaDescription = frontmatter.description ?? fallbackDescription;
+    const canonicalUrl = `${siteUrl}/blog/${slug}`;
+    const jsonLd = {
+        "@context": "https://schema.org",
+        "@type": "Article",
+        headline: frontmatter.title,
+        description: metaDescription,
+        author: frontmatter.author
+            ? { "@type": "Person", name: frontmatter.author }
+            : { "@type": "Organization", name: "ShopifyOrNot.in" },
+        datePublished: frontmatter.date,
+        dateModified: frontmatter.date,
+        mainEntityOfPage: canonicalUrl,
+        image: [defaultOgImage],
+        keywords: frontmatter.keywords ?? fallbackKeywords,
+        publisher: {
+            "@type": "Organization",
+            name: "ShopifyOrNot.in",
+            logo: {
+                "@type": "ImageObject",
+                url: defaultOgImage,
+            },
+        },
+    };
+    const breadcrumbJsonLd = {
+        "@context": "https://schema.org",
+        "@type": "BreadcrumbList",
+        itemListElement: [
+            {
+                "@type": "ListItem",
+                position: 1,
+                name: "Home",
+                item: siteUrl,
+            },
+            {
+                "@type": "ListItem",
+                position: 2,
+                name: "Blog",
+                item: `${siteUrl}/blogs`,
+            },
+            {
+                "@type": "ListItem",
+                position: 3,
+                name: frontmatter.title,
+                item: canonicalUrl,
+            },
+        ],
+    };
 
     return (
         <section className={styles.blogPage}>
@@ -114,6 +187,14 @@ export default async function BlogPage({
             <article className={styles.article}>
                 <ReactMarkdown remarkPlugins={[remarkGfm]}>{content}</ReactMarkdown>
             </article>
+            <script
+                type="application/ld+json"
+                dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
+            />
+            <script
+                type="application/ld+json"
+                dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbJsonLd) }}
+            />
         </section>
     );
 }

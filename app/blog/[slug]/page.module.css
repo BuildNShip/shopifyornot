@@ -181,6 +181,14 @@
     overflow: auto;
 }
 
+.article pre code {
+    background: transparent;
+    padding: 0;
+    border-radius: 0;
+    font-size: 14px;
+    color: inherit;
+}
+
 @media (max-width: 768px) {
     .blogPage {
         padding: 64px 18px;

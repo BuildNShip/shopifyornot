@@ -13,7 +13,7 @@ export async function GET(request: NextRequest) {
 
         // Make the request to the external API
         const response = await fetch(
-            `https://api.shopifyornot.in/check?url=${encodeURIComponent(url)}`,
+            `https://api.shopifyornot.in/check?url=${encodeURIComponent(url)}&source=web`,
             {
                 headers: {
                     Accept: "application/json",
